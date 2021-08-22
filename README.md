@@ -6,4 +6,4 @@ SIADS 694/695 alzheimers and dementia project
 Data information:
 - [NHATs data access page](https://nhats.org/researcher/data-access)
 - [NHATs Crosswalk](https://www.nhats.org/sites/default/files/2021-07/NHATS_R10_Final_Crosswalk_between_Instruments_and_Codebook.pdf)
-
+- [Data user guide](https://www.nhats.org/sites/default/files/2021-07/NHATS_User_Guide_R10_Final_Release.pdf)
