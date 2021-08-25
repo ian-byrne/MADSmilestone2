@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def clean_data(rounds_df):
     # Clean the row values in hc1disescn9 , cg1dclkdraw
     # hc1disescn9 asks if subject has dementia or alzheimers: 1 YES, 2 NO
