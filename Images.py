@@ -28,7 +28,7 @@ def get_images_test():
                 viz_image(imarray1, im_pil)
                 counter += 1
 
-    return get_coordinates(imarray1)
+    return image_data
 
 
 
