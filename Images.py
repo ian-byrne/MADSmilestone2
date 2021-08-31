@@ -5,31 +5,50 @@ import requests
 from PIL import Image
 
 
-
-
 def get_images_test(id_rounds):
     counter = 0
     store_images = []
-    coordinate_data = []
+    image_data = []
 
     for id, array in id_rounds.items():
         for value in array:
-            if counter < 100:
+            if counter < 10:
                 url = 'https://clockimages.s3.us-west-1.amazonaws.com/NHATS_R' + str(
                     id) + '_ClockDrawings/' + value[0] + '.tif'
 
+                # Open files and convert to work with Image in PIL
                 response = requests.get(url)  # , stream = True)
                 f = io.BytesIO(response.content)
                 im_pil = Image.open(f)
-                imarray1 = np.array(im_pil)
-                resized = imarray1.resize(207, 160)
-                # imarray = np.logical_not(np.array(im)).astype(int) #bool to int, inverts values
-                store_images.append(resized)
-                #coordinate_data.append(get_coordinates(imarray1))  # , imarray1.shape[0], imarray1.shape[1]))
-                viz_image(resized)
+
+                # Resize pil image files
+                resized = im_pil.resize((im_pil.width//16,im_pil.height//16))
+                imarray1 = np.array(resized)
+
+                #imarray = np.logical_not(np.array(im)).astype(int) #bool to int, inverts values
+                #image_data.append(get_coordinates(imarray1))  # , imarray1.shape[0], imarray1.shape[1]))
+
+                #Store the np array images into a list
+                store_images.append(imarray1)
+
+                #Visualize the resized images
+                viz_image(imarray1, resized)
                 counter += 1
 
     return store_images
+
+
+
+
+
+
+def viz_image(image, resized):
+  print("shape: ", image.shape)
+
+  # revert
+  im2 = Image.fromarray(np.array(resized))
+  plt.imshow(im2)
+  plt.show()
 
 
 
@@ -48,17 +67,6 @@ def get_coordinates(data):#, height, width):
   return image_array
 
 
-
-
-
-
-def viz_image(image):
-  print("shape: ", image.shape)
-
-  # revert
-  im2 = Image.fromarray(image)
-  plt.imshow(im2)
-  plt.show()
 
 
 
