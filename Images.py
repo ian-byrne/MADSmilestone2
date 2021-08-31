@@ -7,28 +7,29 @@ from PIL import Image
 
 
 
-def get_images_test():
+def get_images_test(id_rounds):
     counter = 0
     store_images = []
-    image_data = []
+    coordinate_data = []
 
     for id, array in id_rounds.items():
         for value in array:
-            if counter < 1:
+            if counter < 100:
                 url = 'https://clockimages.s3.us-west-1.amazonaws.com/NHATS_R' + str(
-                    id) + '_ClockDrawings/' + value + '.tif'
+                    id) + '_ClockDrawings/' + value[0] + '.tif'
 
                 response = requests.get(url)  # , stream = True)
                 f = io.BytesIO(response.content)
                 im_pil = Image.open(f)
                 imarray1 = np.array(im_pil)
+                resized = imarray1.resize(207, 160)
                 # imarray = np.logical_not(np.array(im)).astype(int) #bool to int, inverts values
-                # store_images.append(imarray1)
-                image_data.append(get_coordinates(imarray1))  # , imarray1.shape[0], imarray1.shape[1]))
-                viz_image(imarray1, im_pil)
+                store_images.append(resized)
+                #coordinate_data.append(get_coordinates(imarray1))  # , imarray1.shape[0], imarray1.shape[1]))
+                viz_image(resized)
                 counter += 1
 
-    return image_data
+    return store_images
 
 
 
@@ -51,11 +52,11 @@ def get_coordinates(data):#, height, width):
 
 
 
-def viz_image(image, image_pil):
+def viz_image(image):
   print("shape: ", image.shape)
 
   # revert
-  im2 = Image.fromarray(np.array(image_pil))
+  im2 = Image.fromarray(image)
   plt.imshow(im2)
   plt.show()
 
