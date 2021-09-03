@@ -14,7 +14,7 @@ def create_labels(rounds_clean):
     df['label'] = [2 if x == 2 else 1 for x in df['hc1disescn9']]
 
     # Changing Round 1-3
-    for rounds in df['round'].unique()[:-1]:
+    for rounds in df['round'].unique():
         round_val = rounds
 
         round_post = df[df['round'] == (round_val + 1)]
