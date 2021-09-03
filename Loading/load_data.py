@@ -91,7 +91,7 @@ def hats_load_data():
                              'cg' + str(val) + 'dwrddlyrc': 'cg' + str(int(val / val)) + 'dwrddlyrc'}, inplace=True)
         round_data = round_data.append(data)
 
-        return round_data
+    return round_data
 
 
 
