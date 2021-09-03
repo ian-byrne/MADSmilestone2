@@ -1,6 +1,7 @@
 """Functions to create labels for the round data and to extract IDs with labels per
 clock drawing round and save as a dictionary."""
 
+import numpy as np
 
 def create_labels(rounds_clean):
     """Create labels: label 0 = pre-dementia, 1 = post-dementia, 2 = normal
