@@ -44,3 +44,47 @@ def get_ids(df):
 
     return d
 
+
+
+
+
+def create_hats_labels(round_hat_clean):
+    # Create Labels
+    ## PROBABLE DEMENTIA: 1
+    # First check if Dx is 1 - Yes, 2 - No, 7 - Previously diagnosed
+    # Then if no diagnosis, check proxy input for diagnosis, 1 - YES or 0 for inapplicable
+    # If inapplicable, then check to see if 2 domains meet cut off
+
+    ## POSSIBLE DEMENTIA: 0
+    # Check if 1 domain meets cut off
+
+    ## NO DEMENTIA: 2 (All else)
+
+    # Create a list of conditions
+    conditions = [
+        (round_hat_clean['hc1disescn9'] == 1) | (round_hat_clean['hc1disescn9'] == 7) | (
+                    round_hat_clean['hc1disescn9'] == 0),
+        (round_hat_clean['cp1dad8dem'] == 1),
+        (round_hat_clean['orientation_score'] <= 3) & (round_data['memory_score'] <= 3.0),
+        (round_hat_clean['orientation_score'] <= 3) & (round_data['cg1dclkdraw'] <= 1),
+        (round_hat_clean['memory_score'] <= 3.0) & (round_hat_clean['cg1dclkdraw'] <= 1),
+        (round_hat_clean['memory_score'] > 3.0) & (round_hat_clean['cg1dclkdraw'] > 1) & (
+                    round_hat_clean['orientation_score'] <= 3),
+        (round_hat_clean['memory_score'] > 3.0) & (round_hat_clean['cg1dclkdraw'] <= 1) & (
+                    round_hat_clean['orientation_score'] > 3),
+        (round_hat_clean['memory_score'] <= 3.0) & (round_hat_clean['cg1dclkdraw'] > 1) & (
+                    round_hat_clean['orientation_score'] > 3),
+        (round_hat_clean['memory_score'] > 3.0) & (round_hat_clean['cg1dclkdraw'] > 1) & (
+                    round_hat_clean['orientation_score'] > 3),
+        (round_hat_clean['memory_score'] > 3.0) & (round_hat_clean['cg1dclkdraw'] > 1) & (
+                    round_hat_clean['orientation_score'] > 3),
+        (round_hat_clean['memory_score'] > 3.0) & (round_hat_clean['cg1dclkdraw'] > 1) & (
+                    round_hat_clean['orientation_score'] > 3)]
+
+    # Create a list of the values we want to assign for each condition
+    values = [1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2]
+
+    # Add to the column and use np.select to assign values to it using lists as arguments
+    round_hat_clean['label'] = np.select(conditions, values)
+
+    return round_hat_clean
