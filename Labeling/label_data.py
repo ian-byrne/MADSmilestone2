@@ -18,11 +18,12 @@ def create_labels(rounds_clean):
         round_val = rounds
 
         round_post = df[df['round'] == (round_val + 1)]
-        # assign label value of 0 to the previous round where diagnosis changed from a 2.0 to 1.0
+
+        # assign label value of 0 to the previous rounds where diagnosis changed from a 2.0 to 1.0
         # diagnoses value of 7 corresponds to previous round value of 1, label stays a 1
 
         post1 = round_post[round_post['hc1disescn9'] == 1]
-        df.loc[(df['round'] == round_val) & df['spid'].isin(post1['spid']), 'label'] = 0
+        df.loc[(df['round'] <= round_val) & df['spid'].isin(post1['spid']), 'label'] = 0
 
     return df
 
