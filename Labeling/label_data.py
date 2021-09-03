@@ -65,8 +65,8 @@ def create_hats_labels(round_hat_clean):
         (round_hat_clean['hc1disescn9'] == 1) | (round_hat_clean['hc1disescn9'] == 7) | (
                     round_hat_clean['hc1disescn9'] == 0),
         (round_hat_clean['cp1dad8dem'] == 1),
-        (round_hat_clean['orientation_score'] <= 3) & (round_data['memory_score'] <= 3.0),
-        (round_hat_clean['orientation_score'] <= 3) & (round_data['cg1dclkdraw'] <= 1),
+        (round_hat_clean['orientation_score'] <= 3) & (round_hat_clean['memory_score'] <= 3.0),
+        (round_hat_clean['orientation_score'] <= 3) & (round_hat_clean['cg1dclkdraw'] <= 1),
         (round_hat_clean['memory_score'] <= 3.0) & (round_hat_clean['cg1dclkdraw'] <= 1),
         (round_hat_clean['memory_score'] > 3.0) & (round_hat_clean['cg1dclkdraw'] > 1) & (
                     round_hat_clean['orientation_score'] <= 3),
