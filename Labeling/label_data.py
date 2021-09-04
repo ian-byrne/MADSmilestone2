@@ -8,22 +8,14 @@ def create_labels(rounds_clean):
     Create Normal Label for all entries, base case, then assign value
     of 1 to 1's and 7's"""
 
-    df = rounds_clean
+    df = rounds_clean.copy()
 
     # Assign label of 2 or 1
+    # assign label value of 0 to the previous rounds where diagnosis changed from a 2.0 to 1.0
+    # diagnoses value of 7 corresponds to previous round value of 1, label stays a 1
     df['label'] = [2 if x == 2 else 1 for x in df['hc1disescn9']]
-
-    # Changing Round 1-3
-    for rounds in df['round'].unique():
-        round_val = rounds
-
-        round_post = df[df['round'] == (round_val + 1)]
-
-        # assign label value of 0 to the previous rounds where diagnosis changed from a 2.0 to 1.0
-        # diagnoses value of 7 corresponds to previous round value of 1, label stays a 1
-
-        post1 = round_post[round_post['hc1disescn9'] == 1]
-        df.loc[(df['round'] <= round_val) & df['spid'].isin(post1['spid']), 'label'] = 0
+    label1 = df[df['label'] == 1]
+    df.loc[(df['label'] != 1) & df['spid'].isin(label1['spid']), 'label'] = 0
 
     return df
 
@@ -90,3 +82,35 @@ def create_hats_labels(round_hat_clean):
     round_hat_clean['label'] = np.select(conditions, values)
 
     return round_hat_clean
+
+
+
+
+
+def custom_label(final_df):
+    """
+    takes in df utilizing the nhats dementia classification
+    then applies the ai crowd labeling strategy for assigning 0 labels
+    to spid groups that have a later diagnosis of dementia (label 1).
+    Customizing this label strategy with adding in how to handle situations when
+    the SPID group only has labels of 0s and 2s and are not consistent from round to round. When
+    a 0 appears as a label, all previous entries maintain label of 2, while all other entries
+    receive label of 0.
+    """
+    df = final_df.copy()
+    # for groups where a label of 1 exists, all other values get a 0 (good for groups with labels 1, 2s)
+    label1 = df[df['label'] == 1]
+    df.loc[(df['label'] != 1) & df['spid'].isin(label1['spid']), 'label'] = 0
+
+    # rounds greater than the round where 1 appears, get a 1 (so if there was a 0 after the appears of
+    # a 1, now it becomes a 1)
+    s = df['round'].where(df['label'].eq(1)).groupby(df['spid']).transform('first')
+    df.loc[df['round'].gt(s), 'label'] = 1
+
+    # rounds greater than the round where 0 appears, get a 0, except if the value is a 1 (stays a 1)
+    s = df['round'].where(df['label'].eq(0)).groupby(df['spid']).transform('first')
+    df.loc[(df['label'] != 1) & df['round'].gt(s), 'label'] = 0
+
+    return df
+
+
