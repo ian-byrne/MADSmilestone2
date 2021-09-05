@@ -114,3 +114,25 @@ def custom_label(final_df):
     return df
 
 
+
+
+
+
+def four_combo_label(final_df):
+    df = final_df.copy()
+
+    # for groups where a label of 1 exists, all other values get a 0 (good for groups with labels 1, 2s)
+    label1 = df[df['label'] == 1]
+    df.loc[(df['label'] != 1) & df['spid'].isin(label1['spid']), 'label'] = 0
+
+    # rounds greater than the round where 1 appears, get a 1 (so if there was a 0 after the appears of
+    # a 1, now it becomes a 1)
+    s = df['round'].where(df['label'].eq(1)).groupby(df['spid']).transform('first')
+    df.loc[df['round'].gt(s), 'label'] = 1
+
+    # rounds greater than the round where 0 appears, get a 0, except if the value is a 1 (stays a 1)
+    p = df['round'].where(df['label'].eq(0)).groupby(df['spid']).transform('first')
+    df.loc[(df['label'] != 1) & df['round'].gt(p).lt(p), 'label'] = 0
+
+    return df
+
