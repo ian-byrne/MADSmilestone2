@@ -132,7 +132,7 @@ def four_combo_label(final_df):
 
     # rounds greater than the round where 0 appears, get a 0, except if the value is a 1 (stays a 1)
     p = df['round'].where(df['label'].eq(0)).groupby(df['spid']).transform('first')
-    df.loc[(df['label'] != 1) & df['round'].gt(p).lt(p), 'label'] = 0
+    df.loc[(df['label'] != 1) & (df['round'].gt(p)) | (df['round'].lt(p)), 'label'] = 0
 
     return df
 
