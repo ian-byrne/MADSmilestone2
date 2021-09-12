@@ -73,3 +73,9 @@ The cognitive tests are based in three domains:
 - THe python files contain the functions used with the notebook.
 ### Loading
 - Contains the initial functions used to load images from S3 as well as the tabular data that corresponds with the images.
+
+## Models
+### Predicting Dementia directly from the images.
+- For this model this idea is to pass in the images drawn by the patient to a CNN and try to determine whether or not the patient should be diagnosed with dementia.
+### Predicting images score and passing to another model with other dementia test scores.
+- For this model the idea is to pass the image to a CNN to determine a score of 1-5 for the image and then along with the scores of other dementia tests, pass that data to a second model to try to determine whether or not the patient should be diagnosed with dementia. 
