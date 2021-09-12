@@ -9,3 +9,6 @@ Data information:
 - [Data user guide](https://www.nhats.org/sites/default/files/2021-07/NHATS_User_Guide_R10_Final_Release.pdf)
 
 ## Repository Structure
+### Data
+- Holds the .txt and .csv files containing data from the NHATS rounds. 
+- .txt files contain dictionaries in the structure of key = round and values = tuple of ( id #, label ).
