@@ -106,8 +106,8 @@ def load_np_files(data, target):
 
 
     # Get data
-    x_data = np.load("/content/gdrive/MyDrive/Colab Notebooks/numpy_files/{}".format(str(data)))
-    y_data = np.load("/content/gdrive/MyDrive/Colab Notebooks/numpy_files/{}".format(str(target)))
+    x_data = np.load("/content/gdrive/MyDrive/Colab Notebooks/numpy_files/{}".format(data))
+    y_data = np.load("/content/gdrive/MyDrive/Colab Notebooks/numpy_files/{}".format(target))
 
 
     # Need to add that extra dimension for grayscale depth of 1 channel
