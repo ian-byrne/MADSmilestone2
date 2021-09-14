@@ -96,3 +96,30 @@ def hats_load_data():
 
 
 
+
+
+def load_np_files(data, target):
+    """ Takes in filenames for image data and target data
+    expands the dimensions for the image data to reflect grayscale
+    of dimension 1, prepping for the dataloader, and then zips the
+    image data and labels together for future dataloading."""
+
+
+    # Get data
+    x_data = np.load("/content/gdrive/MyDrive/Colab Notebooks/numpy_files/{}".format(str(data)))
+    y_data = np.load("/content/gdrive/MyDrive/Colab Notebooks/numpy_files/{}".format(str(target)))
+
+
+    # Need to add that extra dimension for grayscale depth of 1 channel
+    x_data = np.expand_dims(x_data, 1)
+    print(x_data.shape)
+
+    # Zip image data and labels together
+    data = [(x, y) for x, y in zip(x_data, y_data)]
+
+    return data
+
+
+
+
+
