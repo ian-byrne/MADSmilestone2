@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import io
-from io import BytesIO
+import torch
 import requests
 from PIL import Image
 
@@ -102,7 +102,8 @@ def load_np_files(data, target):
     """ Takes in filenames for image data and target data
     expands the dimensions for the image data to reflect grayscale
     of dimension 1, prepping for the dataloader, and then zips the
-    image data and labels together for future dataloading."""
+    image data and labels together for future dataloading. Also returns
+    label tensors for each split"""
 
 
     # Get data
@@ -117,7 +118,10 @@ def load_np_files(data, target):
     # Zip image data and labels together
     data = [(x, y) for x, y in zip(x_data, y_data)]
 
-    return data
+    # turn targets into tensors
+    y_tensor = torch.from_numpy(y_data)
+
+    return data, y_tensor
 
 
 
