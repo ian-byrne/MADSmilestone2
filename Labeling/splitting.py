@@ -2,7 +2,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
-def split_data(df, first_split, second_split):
+def split_data(df, first_split, second_split, label):
     """
     :param df: pass in the dataframe
     :param first_split: how much you want to split the test/val set from the train set, (percent
