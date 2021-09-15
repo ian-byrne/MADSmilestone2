@@ -18,7 +18,7 @@ The files contained here were created along the exploration phase of this projec
     - round 
     - cp1dad8dem
 
-  - <b>cleaned_nhat_data.csv</b>: is a data file sans labels that contains SPIDs of type 'string' and all the rest of the columns are int or float values. 
+  - <b>cleaned_nhat_data.csv</b>: is a cleaned version of the hats_round_data.csv data file sans labels that contains SPIDs of type 'string' and all the rest of the features are of type int or float. 
 
 # Dictionaries
   - We separated our CSV files from the dictionaries for organization purposes
