@@ -21,13 +21,13 @@ def split_data(df, first_split, second_split, label):
     print("Total length: ",len(train)+len(val)+len(test))
 
     print("Train data: \n")
-    plt.hist(train.label)
+    plt.hist(train[label])
     plt.show()
     print("Val data: \n")
-    plt.hist(val.label)
+    plt.hist(val[label])
     plt.show()
     print("Test data: \n")
-    plt.hist(test.label)
+    plt.hist(test[label])
     plt.show()
 
     return train, val, test
