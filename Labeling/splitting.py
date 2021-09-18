@@ -12,13 +12,13 @@ def split_data(df, first_split, second_split, label):
     """
     data = df.copy()
 
-    train, temp = train_test_split(data, test_size = first_split, random_state = 42)
-    test, val = train_test_split(temp, test_size = second_split, random_state = 42)
+    train, temp = train_test_split(data, test_size=first_split, random_state=42)
+    test, val = train_test_split(temp, test_size=second_split, random_state=42)
 
     print("length of training set: ", len(train))
     print("length of validation set: ", len(val))
-    print("length of test set: ",len(test))
-    print("Total length: ",len(train)+len(val)+len(test))
+    print("length of test set: ", len(test))
+    print("Total length: ", len(train) + len(val) + len(test))
 
     print("Train data: \n")
     plt.hist(train[label])
