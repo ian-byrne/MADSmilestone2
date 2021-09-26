@@ -1,4 +1,5 @@
 """ML models and data definitions utilized within the Milestone2 project."""
+import torch.nn as nn
 
 
 class ResizedClocks:
