@@ -163,7 +163,7 @@ class ConvNet(nn.Module):
 
         # Fully connected layer
         self.fc1 = nn.Linear(
-            128 * 64 * 82, 60
+            128 * 46 * 35, 60
         )  # most recent original size of: 512, 662 -->64 x 82
         self.do3 = nn.Dropout(0.4)  # 40 % probability
         # self.fc3 = nn.Linear(60, 30)
