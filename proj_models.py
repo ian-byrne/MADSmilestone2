@@ -61,7 +61,7 @@ class ResizedClocks:
 
             im = Image.open(temp.name)  # filename)
 
-            if self.rgb:
+            if self.rgb == True:
                 # print('rgb')
                 gray = im.convert("RGB")
                 resized = gray.resize((284, 368))
@@ -89,6 +89,7 @@ class ResizedClocks:
 
         except botocore.exceptions.ClientError as e:
             return
+
         # try:
         #     self.client.download_file(bucket, obj_name, temp.name)  # filename)
 
