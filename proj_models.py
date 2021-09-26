@@ -37,7 +37,7 @@ class ResizedClocks:
             rgb_val = True
         else:
             processes = transforms.ToTensor()
-            rgb_val = False
+            rgb_val = None
         self.transform = processes
         self.rgb = rgb_val
 
