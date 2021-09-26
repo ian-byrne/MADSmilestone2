@@ -7,6 +7,7 @@ import torchvision.transforms as transforms
 import tempfile
 from PIL import Image
 from skimage.io import imread
+import botocore
 
 
 class ResizedClocks:
@@ -24,14 +25,14 @@ class ResizedClocks:
         self.client = boto3.client(
             "s3", aws_access_key_id=pubkey, aws_secret_access_key=seckey
         )
-        if normalize_ == "True":
+        if normalize_ == True:
             processes = transforms.Compose(
                 [
                     transforms.ToTensor(),
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
                 ]
             )
-            rgb_val = "True"
+            rgb_val = True
         else:
             processes = transforms.ToTensor()
             rgb_val = None
