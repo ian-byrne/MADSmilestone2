@@ -8,6 +8,8 @@ from sklearn.preprocessing import LabelBinarizer
 from sklearn.metrics import roc_curve, auc, roc_auc_score
 import torchvision
 import torchvision.models as models
+import torch.nn as nn
+from proj_models import ConvNet
 
 
 def open_dict(path):
