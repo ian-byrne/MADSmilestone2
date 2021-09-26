@@ -9,6 +9,7 @@ from PIL import Image
 from skimage.io import imread
 import botocore
 import numpy as np
+import torch.nn.functional as F
 
 
 class ResizedClocks:
@@ -135,20 +136,32 @@ class ConvNet(nn.Module):
         # self.fc3 = nn.Linear(60, 30)
         self.fc2 = nn.Linear(60, 3)  # left with 3 for the three classes
 
+    # def forward(self, x):
+    #     """Feed through network."""
+    #     x = self.bn1(
+    #         self.pool1(F.relu(self.conv2(spectral_norm(F.relu(self.conv1(x))))))
+    #     )
+    #     x = self.bn2(
+    #         self.pool2(F.relu(self.conv4(spectral_norm(F.relu(self.conv3(x))))))
+    #     )
+    #     # x = self.bn3(self.pool3(F.relu(self.conv6(F.relu(self.conv5(x))))))
+    #     x = self.bn3(self.pool3(spectral_norm(F.relu(self.conv6((x))))))
+    #     x = self.do2(x)
+    #     x = x.view(x.size(0), 128 * 64 * 82)
+    #     x = spectral_norm(F.relu(self.fc1(x)))
+    #     x = self.do3(x)
+    #     x = self.fc2(x)
+    #     return x
+
     def forward(self, x):
         """Feed through network."""
-        x = self.bn1(
-            self.pool1(F.relu(self.conv2(spectral_norm(F.relu(self.conv1(x))))))
-        )
-        x = self.bn2(
-            self.pool2(F.relu(self.conv4(spectral_norm(F.relu(self.conv3(x))))))
-        )
+        x = self.bn1(self.pool1(F.relu(self.conv2(F.relu(self.conv1(x))))))
+        x = self.bn2(self.pool2(F.relu(self.conv4(F.relu(self.conv3(x))))))
         # x = self.bn3(self.pool3(F.relu(self.conv6(F.relu(self.conv5(x))))))
-        x = self.bn3(self.pool3(spectral_norm(F.relu(self.conv6((x))))))
+        x = self.bn3(self.pool3(F.relu(self.conv6((x)))))
         x = self.do2(x)
-        x = x.view(x.size(0), 128 * 64 * 82)
-        x = spectral_norm(F.relu(self.fc1(x)))
+        x = x.view(x.size(0), 128 * 46 * 35)
+        x = F.relu(self.fc1(x))
         x = self.do3(x)
         x = self.fc2(x)
         return x
-
