@@ -6,8 +6,9 @@ import boto3
 class ResizedClocks:
     """Resized clock drawing dataset."""
 
-    def __init__(self, round, round_labels, rgb=None, transform=None):
+    def __init__(self, round, round_labels, pubkey, seckey, rgb=None, transform=None):
         """Define the dataset.
+
         Args:
             round (int): Round to grab images from.
             values (list of tuples): Corresponding values for the round.
