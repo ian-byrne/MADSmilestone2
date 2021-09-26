@@ -1,12 +1,18 @@
 """ML models and data definitions utilized within the Milestone2 project."""
 import torch.nn as nn
 import boto3
+import torch
+import torchvision
+import torchvision.transforms as transforms
+import tempfile
+from PIL import Image
+from skimage.io import imread
 
 
 class ResizedClocks:
     """Resized clock drawing dataset."""
 
-    def __init__(self, round, round_labels, pubkey, seckey, rgb=None, transform=None):
+    def __init__(self, round, round_labels, pubkey, seckey, normalize_=None):
         """Define the dataset.
 
         Args:
@@ -18,16 +24,29 @@ class ResizedClocks:
         self.client = boto3.client(
             "s3", aws_access_key_id=pubkey, aws_secret_access_key=seckey
         )
-        self.transform = transform
-        self.rgb = rgb
+        if normalize_ == "True":
+            processes = transforms.Compose(
+                [
+                    transforms.ToTensor(),
+                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+                ]
+            )
+            rgb_val = "True"
+        else:
+            processes = transforms.ToTensor()
+            rgb_val = None
+        self.transform = processes
+        self.rgb = rgb_val
 
     def __len__(self):
+        """Define dataset length."""
         return len(self.vals)
 
     # def get_labels(self, idx):
     # return self.vals[idx][1]#self.vals[:, 1]
 
     def __getitem__(self, idx):
+        """Loops through indexed items in dataset."""
         spid = self.vals[idx][0]
         label = torch.tensor(int(self.vals[idx][1]))
         bucket = "clockimages"  # "test-bucket-clockids-aicrowd"
@@ -36,7 +55,7 @@ class ResizedClocks:
         temp = tempfile.NamedTemporaryFile()
 
         try:
-            client.download_file(bucket, obj_name, temp.name)  # filename)
+            self.client.download_file(bucket, obj_name, temp.name)  # filename)
 
             im = Image.open(temp.name)  # filename)
 
@@ -71,6 +90,7 @@ class ConvNet(nn.Module):
     """From scratch CNN to label dementia."""
 
     def __init__(self):
+        """Define CNN."""
         super(ConvNet, self).__init__()
 
         # without considering batch size: Input shape : (None,368, 284, 1) , parameters: (3*3*1*16+16) = 160
@@ -114,6 +134,7 @@ class ConvNet(nn.Module):
         self.fc2 = nn.Linear(60, 3)  # left with 3 for the three classes
 
     def forward(self, x):
+        """Feed through network."""
         x = self.bn1(
             self.pool1(F.relu(self.conv2(spectral_norm(F.relu(self.conv1(x))))))
         )
