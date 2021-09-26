@@ -2,6 +2,7 @@
 
 import ast
 import torch
+import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelBinarizer

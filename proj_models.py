@@ -8,6 +8,7 @@ import tempfile
 from PIL import Image
 from skimage.io import imread
 import botocore
+import numpy as np
 
 
 class ResizedClocks:
