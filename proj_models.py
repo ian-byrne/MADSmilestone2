@@ -36,7 +36,7 @@ class ResizedClocks:
             rgb_val = True
         else:
             processes = transforms.ToTensor()
-            rgb_val = None
+            rgb_val = False
         self.transform = processes
         self.rgb = rgb_val
 
@@ -61,7 +61,7 @@ class ResizedClocks:
 
             im = Image.open(temp.name)  # filename)
 
-            if self.rgb:
+            if self.rgb == True:
                 # print('rgb')
                 gray = im.convert("RGB")
 
