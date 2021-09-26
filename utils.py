@@ -2,7 +2,7 @@
 
 import ast
 import torch
-import tqdm
+from tqdm import tqdm
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.metrics import roc_curve, auc, roc_auc_score
