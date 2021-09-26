@@ -6,6 +6,8 @@ import tqdm
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.metrics import roc_curve, auc, roc_auc_score
+import torchvision
+import torchvision.models as models
 
 
 def open_dict(path):
