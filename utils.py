@@ -102,8 +102,6 @@ def train_val_model(
             )  # (float).to(device) # for GPU support
             y_train_batch = y_train_batch.to(device)
 
-            # print(x_train_batch.shape)
-
             # sets gradients to 0 to prevent interference with previous epoch
             optimizer.zero_grad()
 
