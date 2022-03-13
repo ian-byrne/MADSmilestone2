@@ -14,7 +14,7 @@ Data information:
 
 ## **AI Crowd Labeling Method**
 
-We received inspiration from the AI Crowd's Alzheimer's Clock Challenge and reached out to their data team inquiring about labeling the clock images for that challenge. Ankit < insert last name > explained that they use the values in the variable 'hc1disescn9' to help label the images. The variable 'hc1disescn9' contains values that indicate whether someone has dementia/Alzheimer's or not. A response of '1 YES' indicates that they have a confirmed diagnosis of Alzheimer's or Dementia and '2 NO' indicates no diagnosis has been given. A value of '7' indicates that a response of '1 YES' has already been recorded in a previous round. AI Crowd labeled each image as either:
+We received inspiration from the AI Crowd's Alzheimer's Clock Challenge and reached out to their data team inquiring about labeling the clock images for that challenge. Ankit Pandey explained that they use the values in the variable 'hc1disescn9' to help label the images. The variable 'hc1disescn9' contains values that indicate whether someone has dementia/Alzheimer's or not. A response of '1 YES' indicates that they have a confirmed diagnosis of Alzheimer's or Dementia and '2 NO' indicates no diagnosis has been given. A value of '7' indicates that a response of '1 YES' has already been recorded in a previous round. AI Crowd labeled each image as either:
   - 0 - Pre-Alzheimers
   - 1 - Post-Alzheimers 
   - 2 - Normal
