@@ -2,8 +2,8 @@
 ## University of Michigan Milestone II Prohject
 
 **Authors:**
-- [Stacey Rivet Beck](malito:starbeck@umich.edu)
-- [Ian Byrne](malito:ianbyrne@umich.edu)
+- [Stacey Rivet Beck](mailto:starbeck@umich.edu)
+- [Ian Byrne](mailto:ianbyrne@umich.edu)
 
 [Project Inspiration](https://www.aicrowd.com/challenges/addi-alzheimers-detection-challenge)
 
