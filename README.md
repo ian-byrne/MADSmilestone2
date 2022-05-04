@@ -1,9 +1,9 @@
-# MADSmilestone2
-**SIADS 694/695 alzheimers and dementia project**
+# Predicting Dementia: A Study Using Hand-Drawn Clock Images
+## University of Michigan Milestone II Prohject
 
 **Authors:**
-- Stacey Rivet Beck starbeck@umich.edu
-- Ian Byrne ianbyrne@umich.edu
+- [Stacey Rivet Beck](malito:starbeck@umich.edu)
+- [Ian Byrne](malito:ianbyrne@umich.edu)
 
 [Project Inspiration](https://www.aicrowd.com/challenges/addi-alzheimers-detection-challenge)
 
