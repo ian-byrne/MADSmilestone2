@@ -24,16 +24,11 @@ def create_labels(rounds_clean):
 def get_ids(df, label):
     """ Creates dictionary of rounds keys with values as list of tuples
      containing SPIDs and labels per round"""
+    
     label = str(label)
-    # id_dict = {}
-    # for val in df['round'].unique():
-    # id_dict[val] = df[df['round'] == val]['spid'].values
-
     indexed_df = df[["round", "spid", label]]
     d = {}
-    # for round, id, label in zip(indexed_df['round'].values,
-    #                            indexed_df['spid'].values, indexed_df['label'].values):
-    #    d.setdefault(round, {}).update({id: label})
+ 
     for round, id, lab in zip(
         indexed_df["round"].values, indexed_df["spid"].values, indexed_df[label].values
     ):
